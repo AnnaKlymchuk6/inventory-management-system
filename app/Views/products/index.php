@@ -25,6 +25,8 @@
         <form action="/inventory-management-system/public/products/delete" method="POST">
             <input type="hidden" name="id" value="<?= $product['id'] ?>">
             <button type="submit">Видалити</button>
+
+            <a href="/inventory-management-system/public/products/edit?id=<?= $product['id'] ?>">Редагувати</a>
         </form>
     </div>
     <hr>

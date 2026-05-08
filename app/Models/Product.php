@@ -32,4 +32,28 @@ class Product extends Model
             ':id' => $id
         ]);
     }
+
+    public function getById(int $id): array|false
+    {
+        $query = "SELECT * FROM products WHERE id = :id";
+        $statement = $this->db->prepare($query);
+
+        $statement->execute([
+            ':id' => $id
+        ]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $query = "UPDATE products SET name = :name, quantity = :quantity, price = :price WHERE id = :id";
+        $statement = $this->db->prepare($query);
+
+        return $statement->execute([
+            ':id' => $id,
+            ':name' => $data['name'],
+            ':quantity' => $data['quantity'],
+            ':price' => $data['price']
+        ]);
+    }
 }

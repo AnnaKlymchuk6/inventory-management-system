@@ -33,6 +33,16 @@ $router->add('/products/delete', function () {
     $controller->delete();
 });
 
+$router->add('/products/edit', function () {
+    $controller = new ProductController();
+    $controller->edit();
+});
+
+$router->add('/products/update', function () {
+    $controller = new ProductController();
+    $controller->update();
+});
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $basePath = '/inventory-management-system/public';
