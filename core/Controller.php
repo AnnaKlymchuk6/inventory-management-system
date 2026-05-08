@@ -6,6 +6,8 @@ class Controller
     {
         extract($data);
 
-        require __DIR__ . '/../app/Views/' . $view . '.php';
+        $viewPath = __DIR__ . '/../app/Views/' . $view . '.php';
+
+        require __DIR__ . '/../app/Views/layouts/main.php';
     }
 }
