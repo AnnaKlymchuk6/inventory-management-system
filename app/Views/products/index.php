@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Товари</title>
-</head>
-<body>
 <h1>Список товарів</h1>
 
 <a href="/inventory-management-system/public/products/create">Додати товар</a>
@@ -24,13 +17,11 @@
 
         <form action="/inventory-management-system/public/products/delete" method="POST">
             <input type="hidden" name="id" value="<?= $product['id'] ?>">
-            <button type="submit">Видалити</button>
 
             <a href="/inventory-management-system/public/products/edit?id=<?= $product['id'] ?>">Редагувати</a>
+            <button type="submit">Видалити</button>
         </form>
     </div>
     <hr>
 <?php endforeach; ?>
 
-</body>
-</html>

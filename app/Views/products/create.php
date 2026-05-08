@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Додати товар</title>
-</head>
-<body>
-
 <h1>Додати товар</h1>
 <?php if (!empty($errors)): ?>
     <div>
@@ -31,5 +23,3 @@
     </div><br>
     <button type="submit">Зберегти</button>
 </form>
-</body>
-</html>

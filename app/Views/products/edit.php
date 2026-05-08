@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Редагування товару</title>
-</head>
-<body>
 <h1>Редагування товару</h1>
 <?php if (!empty($errors)): ?>
 
@@ -36,5 +29,3 @@
         Оновити
     </button>
 </form>
-</body>
-</html>
