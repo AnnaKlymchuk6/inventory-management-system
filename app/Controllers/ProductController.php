@@ -25,7 +25,35 @@ class ProductController extends Controller
 
     public function store(): void
     {
+        $name = trim($_POST['name']);
+        $quantity = (int) $_POST['quantity'];
+        $price = (float) $_POST['price'];
+
+        $errors = [];
+
+        if ($name === '') {
+            $errors[] = 'Назва товару обов’язкова.';
+        }
+
+        if ($quantity < 0) {
+            $errors[] = 'Кількість не може бути від’ємною.';
+        }
+
+        if ($price < 0) {
+            $errors[] = 'Ціна не може бути від’ємною.';
+        }
+
+        if (!empty($errors)) {
+
+            $this->view('products/create', [
+                'errors' => $errors
+            ]);
+
+            return;
+        }
+
         $this->productModel->create($_POST);
+
         header('Location: /inventory-management-system/public/products');
     }
 
@@ -49,7 +77,35 @@ class ProductController extends Controller
     public function update(): void
     {
         $id = (int) $_POST['id'];
+
+        $name = trim($_POST['name']);
+        $quantity = (int) $_POST['quantity'];
+        $price = (float) $_POST['price'];
+
+        $errors = [];
+
+        if ($name === '') {
+            $errors[] = 'Назва товару обов’язкова.';
+        }
+        if ($quantity < 0) {
+            $errors[] = 'Кількість не може бути від’ємною.';
+        }
+        if ($price < 0) {
+            $errors[] = 'Ціна не може бути від’ємною.';
+        }
+
+        if (!empty($errors)) {
+            $product = $this->productModel->getById($id);
+
+            $this->view('products/edit', [
+                'product' => $product,
+                'errors' => $errors
+            ]);
+            return;
+        }
+
         $this->productModel->update($id, $_POST);
+
         header('Location: /inventory-management-system/public/products');
     }
 }
