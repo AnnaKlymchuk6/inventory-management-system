@@ -6,7 +6,14 @@
 </head>
 <body>
 <h1>Редагування товару</h1>
+<?php if (!empty($errors)): ?>
 
+    <div><?php foreach ($errors as $error): ?>
+            <p><?= $error ?></p>
+        <?php endforeach; ?>
+    </div>
+    <hr>
+<?php endif; ?>
 <form action="/inventory-management-system/public/products/update" method="POST">
     <input type="hidden" name="id" value="<?= $product['id'] ?>">
 

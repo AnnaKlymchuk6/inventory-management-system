@@ -7,7 +7,14 @@
 <body>
 
 <h1>Додати товар</h1>
-
+<?php if (!empty($errors)): ?>
+    <div>
+        <?php foreach ($errors as $error): ?>
+            <p><?= $error ?></p>
+        <?php endforeach; ?>
+    </div>
+    <hr>
+<?php endif; ?>
 <form action="/inventory-management-system/public/products/store" method="POST">
     <div>
         <label>Назва товару</label><br>
