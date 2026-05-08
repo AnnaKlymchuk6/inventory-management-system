@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Warehouse Inventory Management System</title>
+    <title>Система обліку товарів на складі</title>
 </head>
 <body>
 
-<h1>Warehouse Inventory Management System</h1>
+<h1>Система обліку товарів на складі</h1>
 
-<p>Welcome to the warehouse inventory management system.</p>
+<p>Ласкаво просимо до системи управління складом.</p>
+
+<a href="/inventory-management-system/public/products">
+    Перейти до товарів
+</a>
 
 </body>
 </html>
