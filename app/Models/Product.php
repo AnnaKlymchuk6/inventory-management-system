@@ -6,20 +6,24 @@ class Product extends Model
 {
     public function getAll(): array
     {
-        $query = "SELECT * FROM products ORDER BY id DESC";
+        $query = "SELECT products.*, categories.name AS category_name
+        FROM products LEFT JOIN categories ON products.category_id = categories.id
+        ORDER BY products.id DESC";
+
         $statement = $this->db->query($query);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function create(array $data): bool
     {
-        $query = "INSERT INTO products (name, quantity, price) VALUES (:name, :quantity, :price)";
+        $query = "INSERT INTO products (name, quantity, price, category_id) VALUES (:name, :quantity, :price, :category_id)";
         $statement = $this->db->prepare($query);
 
         return $statement->execute([
             ':name' => $data['name'],
             ':quantity' => $data['quantity'],
-            ':price' => $data['price']
+            ':price' => $data['price'],
+            ':category_id' => $data['category_id']
         ]);
     }
 

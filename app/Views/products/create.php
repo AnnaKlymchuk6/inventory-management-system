@@ -21,5 +21,16 @@
         <label>Ціна</label><br>
         <input type="number" step="0.01" name="price" required>
     </div><br>
+
+    <div>
+        <label>Категорія</label><br><br>
+
+        <select name="category_id">
+            <?php foreach ($categories as $category): ?>
+                <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div><br>
+
     <button type="submit">Зберегти</button>
 </form>
