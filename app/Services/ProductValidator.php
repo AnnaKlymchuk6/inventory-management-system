@@ -1,7 +1,5 @@
 <?php
 
-namespace Services;
-
 class ProductValidator
 {
     public function validate(array $data): array

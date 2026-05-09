@@ -12,6 +12,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
+        Auth::requireLogin();
+
         $this->productModel = new Product();
         $this->validator = new ProductValidator();
     }

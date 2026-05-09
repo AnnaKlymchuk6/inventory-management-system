@@ -14,6 +14,8 @@ class HomeController extends Controller
 
     public function index(): void
     {
+        Auth::requireLogin();
+
         $statistics = $this->productModel->getStatistics();
 
         $latestProducts = $this->productModel->getLatestProducts();

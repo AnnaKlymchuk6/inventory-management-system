@@ -26,6 +26,14 @@ class Auth
         return isset($_SESSION['user']);
     }
 
+    public static function requireLogin(): void
+    {
+        if (!self::check()) {
+            header('Location: /inventory-management-system/public/login');
+            exit;
+        }
+    }
+
     public static function role(): ?string
     {
         return $_SESSION['user']['role'] ?? null;
