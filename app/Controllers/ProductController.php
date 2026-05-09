@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../core/Controller.php';
 require_once __DIR__ . '/../Models/Product.php';
-
+require_once __DIR__ . '/../Models/Category.php';
 class ProductController extends Controller
 {
     private Product $productModel;
@@ -30,7 +30,12 @@ class ProductController extends Controller
 
     public function create(): void
     {
-        $this->view('products/create');
+        $categoryModel = new Category();
+        $categories = $categoryModel->getAll();
+
+        $this->view('products/create', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(): void

@@ -21,6 +21,7 @@
 
         <p>Кількість: <?= $product['quantity'] ?></p>
         <p>Ціна: <?= $product['price'] ?> грн</p>
+        <p>Категорія:<?= htmlspecialchars($product['category_name']) ?></p>
 
         <form action="/inventory-management-system/public/products/delete" method="POST">
             <input type="hidden" name="id" value="<?= $product['id'] ?>">
