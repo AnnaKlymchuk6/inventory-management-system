@@ -14,8 +14,18 @@ class ProductController extends Controller
 
     public function index(): void
     {
-        $products = $this->productModel->getAll();
-        $this->view('products/index', ['products' => $products]);
+        $search = $_GET['search'] ?? '';
+
+        if (!empty($search)) {
+            $products = $this->productModel->search($search);
+        } else {
+            $products = $this->productModel->getAll();
+        }
+
+        $this->view('products/index', [
+            'products' => $products,
+            'search' => $search
+        ]);
     }
 
     public function create(): void

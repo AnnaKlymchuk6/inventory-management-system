@@ -1,5 +1,12 @@
 <h1>Список товарів</h1>
 
+<form method="GET">
+    <input type="text" name="search" placeholder="Пошук товару" value="<?= htmlspecialchars($search ?? '') ?>">
+
+    <button type="submit">Пошук</button>
+</form>
+<br>
+
 <a href="/inventory-management-system/public/products/create">Додати товар</a>
 
 <hr>
