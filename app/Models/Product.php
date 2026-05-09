@@ -65,14 +65,16 @@ class Product extends Model
 
     public function update(int $id, array $data): bool
     {
-        $query = "UPDATE products SET name = :name, quantity = :quantity, price = :price WHERE id = :id";
+        $query = "UPDATE products 
+        SET name = :name, quantity = :quantity, price = :price, category_id = :category_id WHERE id = :id";
         $statement = $this->db->prepare($query);
 
         return $statement->execute([
             ':id' => $id,
             ':name' => $data['name'],
             ':quantity' => $data['quantity'],
-            ':price' => $data['price']
+            ':price' => $data['price'],
+            ':category_id' => $data['category_id']
         ]);
     }
 

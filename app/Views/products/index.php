@@ -44,7 +44,10 @@
             <input type="hidden" name="id" value="<?= $product['id'] ?>">
 
             <a href="/inventory-management-system/public/products/edit?id=<?= $product['id'] ?>">Редагувати</a>
-            <button type="submit">Видалити</button>
+            <button type="submit"
+                    onclick="return confirm('Ви впевнені що хочете видалити товар?')">
+                Видалити
+            </button>
         </form>
     </div>
     <hr>

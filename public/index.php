@@ -1,10 +1,12 @@
 <?php
-
+session_start();
 require_once '../core/Database.php';
 require_once '../core/Router.php';
 
 require_once '../app/Controllers/HomeController.php';
 require_once '../app/Controllers/ProductController.php';
+
+require_once '../app/Controllers/AuthController.php';
 
 $router = new Router();
 
@@ -46,6 +48,21 @@ $router->add('/products/update', function () {
 $router->add('/products/low-stock', function () {
     $controller = new ProductController();
     $controller->lowStock();
+});
+$router->add('/login', function () {
+    $controller = new AuthController();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $controller->login();
+        return;
+    }
+
+    $controller->loginForm();
+});
+
+$router->add('/logout', function () {
+    $controller = new AuthController();
+    $controller->logout();
 });
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
