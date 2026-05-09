@@ -123,4 +123,13 @@ class ProductController extends Controller
 
         header('Location: /inventory-management-system/public/products');
     }
+
+    public function lowStock(): void
+    {
+        $products = $this->productModel->getLowStockProducts();
+
+        $this->view('products/low-stock', [
+            'products' => $products
+        ]);
+    }
 }

@@ -16,6 +16,8 @@
         <a href="/inventory-management-system/public/">Головна</a>
 
         <a href="/inventory-management-system/public/products">Товари</a>
+
+        <a href="/inventory-management-system/public/products/low-stock">Малий залишок</a>
     </nav>
 
 </header>

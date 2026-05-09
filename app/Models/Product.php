@@ -89,4 +89,11 @@ class Product extends Model
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getLowStockProducts(): array
+    {
+        $query = "SELECT *FROM products WHERE quantity <= 5 ORDER BY quantity ASC";
+        $statement = $this->db->query($query);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
