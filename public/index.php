@@ -43,6 +43,11 @@ $router->add('/products/update', function () {
     $controller->update();
 });
 
+$router->add('/products/low-stock', function () {
+    $controller = new ProductController();
+    $controller->lowStock();
+});
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $basePath = '/inventory-management-system/public';
