@@ -7,6 +7,23 @@
 </form>
 <br>
 
+<form method="GET">
+    <label>Фільтр по категорії</label>
+
+    <select name="category">
+        <option value="">Усі товари</option>
+
+        <?php foreach ($categories as $category): ?>
+            <option value="<?= $category['id'] ?>"
+                    <?= $selectedCategory == $category['id'] ? 'selected' : '' ?>><?= htmlspecialchars($category['name']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <button type="submit">Фільтрувати</button>
+</form>
+<br>
+
 <a href="/inventory-management-system/public/products/create">Додати товар</a>
 
 <hr>

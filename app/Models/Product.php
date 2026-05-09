@@ -4,13 +4,28 @@ require_once __DIR__ . '/../../core/Model.php';
 
 class Product extends Model
 {
-    public function getAll(): array
+    public function getAll(?int $categoryId = null): array
     {
         $query = "SELECT products.*, categories.name AS category_name
-        FROM products LEFT JOIN categories ON products.category_id = categories.id
-        ORDER BY products.id DESC";
+        FROM products LEFT JOIN categories ON products.category_id = categories.id";
 
-        $statement = $this->db->query($query);
+        if ($categoryId !== null) {
+            $query .= " WHERE products.category_id = :category_id";
+        }
+
+        $query .= " ORDER BY products.id DESC";
+
+        $statement = $this->db->prepare($query);
+
+        if ($categoryId !== null) {
+            $statement->bindValue(
+                ':category_id',
+                $categoryId,
+                PDO::PARAM_INT
+            );
+        }
+        $statement->execute();
+
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -61,14 +76,34 @@ class Product extends Model
         ]);
     }
 
-    public function search(string $keyword): array
+    public function search(string $search, ?int $categoryId = null): array
     {
-        $query = "SELECT * FROM products WHERE name LIKE :keyword ORDER BY id DESC";
+        $query = "SELECT products.*, categories.name AS category_name
+        FROM products LEFT JOIN categories ON products.category_id = categories.id WHERE products.name LIKE :search";
+
+        if ($categoryId !== null) {
+            $query .= " AND products.category_id = :category_id";
+        }
+
+        $query .= " ORDER BY products.id DESC";
+
         $statement = $this->db->prepare($query);
 
-        $statement->execute([
-            ':keyword' => '%' . $keyword . '%'
-        ]);
+        $statement->bindValue(
+            ':search',
+            "%{$search}%"
+        );
+
+        if ($categoryId !== null) {
+            $statement->bindValue(
+                ':category_id',
+                $categoryId,
+                PDO::PARAM_INT
+            );
+        }
+
+        $statement->execute();
+
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getStatistics(): array
