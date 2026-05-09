@@ -56,4 +56,15 @@ class Product extends Model
             ':price' => $data['price']
         ]);
     }
+
+    public function search(string $keyword): array
+    {
+        $query = "SELECT * FROM products WHERE name LIKE :keyword ORDER BY id DESC";
+        $statement = $this->db->prepare($query);
+
+        $statement->execute([
+            ':keyword' => '%' . $keyword . '%'
+        ]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
