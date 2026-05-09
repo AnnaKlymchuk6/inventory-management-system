@@ -14,17 +14,31 @@ class ProductController extends Controller
 
     public function index(): void
     {
+        $categoryModel = new Category();
+
+        $categories = $categoryModel->getAll();
+
         $search = $_GET['search'] ?? '';
 
+        $selectedCategory = $_GET['category'] ?? null;
+
+        if ($selectedCategory === '') {
+            $selectedCategory = null;
+        }
+
         if (!empty($search)) {
-            $products = $this->productModel->search($search);
+            $products = $this->productModel->search($search, $selectedCategory ? (int)$selectedCategory : null);
         } else {
-            $products = $this->productModel->getAll();
+            $products = $this->productModel->getAll(
+                $selectedCategory ? (int)$selectedCategory : null
+            );
         }
 
         $this->view('products/index', [
             'products' => $products,
-            'search' => $search
+            'search' => $search,
+            'categories' => $categories,
+            'selectedCategory' => $selectedCategory
         ]);
     }
 
