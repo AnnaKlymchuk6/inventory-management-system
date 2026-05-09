@@ -1,3 +1,10 @@
+<?php
+
+require_once __DIR__ . '/../../Helpers/Auth.php';
+
+$user = Auth::user();
+
+?>
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -16,6 +23,15 @@
         <a href="/inventory-management-system/public/">Головна</a>
 
         <a href="/inventory-management-system/public/products">Товари</a>
+
+        <?php if ($user): ?>
+
+            <span><?= htmlspecialchars($user['name']) ?>(<?= htmlspecialchars($user['role']) ?>)</span>
+
+            <a href="/inventory-management-system/public/logout">Вийти</a>
+        <?php else: ?>
+            <a href="/inventory-management-system/public/login">Увійти</a>
+        <?php endif; ?>
 
         <a href="/inventory-management-system/public/products/low-stock">Малий залишок</a>
     </nav>

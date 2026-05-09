@@ -3,13 +3,17 @@
 require_once __DIR__ . '/../../core/Controller.php';
 require_once __DIR__ . '/../Models/Product.php';
 require_once __DIR__ . '/../Models/Category.php';
+require_once __DIR__ . '/../Helpers/Auth.php';
+require_once __DIR__ . '/../Services/ProductValidator.php';
 class ProductController extends Controller
 {
     private Product $productModel;
+    private ProductValidator $validator;
 
     public function __construct()
     {
         $this->productModel = new Product();
+        $this->validator = new ProductValidator();
     }
 
     public function index(): void
@@ -44,6 +48,11 @@ class ProductController extends Controller
 
     public function create(): void
     {
+        if (Auth::isEmployee()) {
+            header('Location: /inventory-management-system/public/products');
+
+            return;
+        }
         $categoryModel = new Category();
         $categories = $categoryModel->getAll();
 
@@ -54,28 +63,22 @@ class ProductController extends Controller
 
     public function store(): void
     {
-        $name = trim($_POST['name']);
-        $quantity = (int) $_POST['quantity'];
-        $price = (float) $_POST['price'];
+        if (Auth::isEmployee()) {
+            header('Location: /inventory-management-system/public/products');
 
-        $errors = [];
-
-        if ($name === '') {
-            $errors[] = 'Назва товару обов’язкова.';
+            return;
         }
 
-        if ($quantity < 0) {
-            $errors[] = 'Кількість не може бути від’ємною.';
-        }
-
-        if ($price < 0) {
-            $errors[] = 'Ціна не може бути від’ємною.';
-        }
+        $errors = $this->validator->validate($_POST);
 
         if (!empty($errors)) {
+            $categoryModel = new Category();
+
+            $categories = $categoryModel->getAll();
 
             $this->view('products/create', [
-                'errors' => $errors
+                'errors' => $errors,
+                'categories' => $categories
             ]);
 
             return;
@@ -88,6 +91,11 @@ class ProductController extends Controller
 
     public function delete(): void
     {
+        if (!Auth::isAdmin()) {
+            header('Location: /inventory-management-system/public/products');
+
+            return;
+        }
         $id = (int) $_POST['id'];
         $this->productModel->delete($id);
         header('Location: /inventory-management-system/public/products');
@@ -95,41 +103,51 @@ class ProductController extends Controller
 
     public function edit(): void
     {
+        if (Auth::isEmployee()) {
+            header('Location: /inventory-management-system/public/products');
+
+            return;
+        }
+
         $id = (int) $_GET['id'];
+
         $product = $this->productModel->getById($id);
 
+        $categoryModel = new Category();
+
+        $categories = $categoryModel->getAll();
+
         $this->view('products/edit', [
-            'product' => $product
+            'product' => $product,
+            'categories' => $categories
         ]);
     }
 
     public function update(): void
     {
+        if (Auth::isEmployee()) {
+            header('Location: /inventory-management-system/public/products');
+
+            return;
+        }
+
         $id = (int) $_POST['id'];
 
-        $name = trim($_POST['name']);
-        $quantity = (int) $_POST['quantity'];
-        $price = (float) $_POST['price'];
-
-        $errors = [];
-
-        if ($name === '') {
-            $errors[] = 'Назва товару обов’язкова.';
-        }
-        if ($quantity < 0) {
-            $errors[] = 'Кількість не може бути від’ємною.';
-        }
-        if ($price < 0) {
-            $errors[] = 'Ціна не може бути від’ємною.';
-        }
+        $errors = $this->validator->validate($_POST);
 
         if (!empty($errors)) {
             $product = $this->productModel->getById($id);
 
+            $categoryModel = new Category();
+
+            $categories = $categoryModel->getAll();
+
             $this->view('products/edit', [
                 'product' => $product,
+                'categories' => $categories,
                 'errors' => $errors
             ]);
+
             return;
         }
 

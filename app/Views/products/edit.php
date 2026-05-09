@@ -25,7 +25,21 @@
         <input type="number" step="0.01" name="price" value="<?= $product['price'] ?>" required>
     </div><br>
 
-    <button type="submit">
-        Оновити
-    </button>
+    <div>
+        <label>Категорія</label><br><br>
+
+        <select name="category_id">
+
+            <?php foreach ($categories as $category): ?>
+                <option value="<?= $category['id'] ?>"
+                        <?= $product['category_id'] == $category['id'] ? 'selected' : '' ?>>
+
+                    <?= htmlspecialchars($category['name']) ?>
+                </option>
+            <?php endforeach; ?>
+
+        </select>
+    </div><br>
+
+    <button type="submit">Оновити</button>
 </form>
