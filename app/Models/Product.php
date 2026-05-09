@@ -67,4 +67,22 @@ class Product extends Model
         ]);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getStatistics(): array
+    {
+        $query = "SELECT COUNT(*) as total_products, SUM(quantity) as total_quantity,
+       SUM(quantity * price) as total_value FROM products";
+
+        $statement = $this->db->query($query);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getLatestProducts(): array
+    {
+        $query = "SELECT * FROM products ORDER BY id DESC LIMIT 5";
+
+        $statement = $this->db->query($query);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
