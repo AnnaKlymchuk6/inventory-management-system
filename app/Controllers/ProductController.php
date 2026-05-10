@@ -7,6 +7,7 @@ require_once __DIR__ . '/../Helpers/Auth.php';
 require_once __DIR__ . '/../Services/ProductValidator.php';
 require_once __DIR__ . '/../Services/ActivityLogger.php';
 
+
 class ProductController extends Controller
 {
     private Product $productModel;

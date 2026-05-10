@@ -49,13 +49,25 @@ $user = Auth::user();
     </div>
 
     <nav class="navbar">
-        <a class="nav-link" href="/inventory-management-system/public/">Dashboard</a>
+        <a class="nav-link" href="/inventory-management-system/public/">
+            Dashboard
+        </a>
 
-        <a class="nav-link" href="/inventory-management-system/public/products">Товари</a>
+        <a class="nav-link" href="/inventory-management-system/public/products">
+            Товари
+        </a>
 
-        <a class="nav-link" href="/inventory-management-system/public/products/low-stock">Низький запас</a>
+        <a href="/inventory-management-system/public/stock/history-all">
+            Рух товарів
+        </a>
 
-        <a href="/inventory-management-system/public/activity-logs">Історія дій</a>
+        <a class="nav-link" href="/inventory-management-system/public/products/low-stock">
+            Низький запас
+        </a>
+
+        <a href="/inventory-management-system/public/activity-logs">
+            Історія дій
+        </a>
     </nav>
 
 </header>

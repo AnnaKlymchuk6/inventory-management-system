@@ -133,4 +133,23 @@ class Product extends Model
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function updateQuantity(
+        int $id,
+        int $quantity
+    ): void {
+
+        $sql = "
+        UPDATE products
+        SET quantity = :quantity
+        WHERE id = :id
+    ";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            ':quantity' => $quantity,
+            ':id' => $id
+        ]);
+    }
 }

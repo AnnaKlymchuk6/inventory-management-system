@@ -9,6 +9,9 @@ require_once '../app/Controllers/AuthController.php';
 
 require_once '../app/Controllers/ActivityLogController.php';
 
+require_once '../app/Controllers/StockMovementController.php';
+
+
 $router = new Router();
 
 require_once '../routes/web.php';

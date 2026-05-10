@@ -60,3 +60,23 @@ $router->add('/activity-logs', function () {
     $controller = new ActivityLogController();
     $controller->index();
 });
+
+$router->add('/stock/create', function () {
+    $controller = new StockMovementController();
+    $controller->create();
+});
+
+$router->add('/stock/store', function () {
+    $controller = new StockMovementController();
+    $controller->store();
+});
+
+$router->add('/stock/history', function () {
+    $controller = new StockMovementController();
+    $controller->history();
+});
+
+$router->add('/stock/history-all', function () {
+    $controller = new StockMovementController();
+    $controller->allHistory();
+});
