@@ -66,7 +66,7 @@ $user = Auth::user();
         </a>
 
         <a class="nav-link" href="/inventory-management-system/public/products/low-stock">
-            Низький запас
+            Малий залишок
         </a>
 
         <?php if (!Auth::isEmployee()): ?>

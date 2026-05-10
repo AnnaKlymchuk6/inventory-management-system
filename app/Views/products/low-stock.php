@@ -1,5 +1,5 @@
 <h1 class="page-title">
-    Товари з низьким запасом
+    Товари з малим залишком
 </h1>
 
 <div class="products-grid">

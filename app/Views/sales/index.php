@@ -15,6 +15,7 @@
             <th>Кількість</th>
             <th>Сума</th>
             <th>Працівник</th>
+            <th>Коментар</th>
             <th>Дата</th>
         </tr>
         </thead>
@@ -34,6 +35,10 @@
                 </td>
 
                 <td><?= htmlspecialchars($sale['user_name']) ?></td>
+
+                <td>
+                    <?= htmlspecialchars($sale['note'] ?: '-') ?>
+                </td>
 
                 <td><?= $sale['created_at'] ?></td>
 
