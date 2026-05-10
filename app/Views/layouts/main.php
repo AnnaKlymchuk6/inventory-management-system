@@ -54,6 +54,8 @@ $user = Auth::user();
         <a class="nav-link" href="/inventory-management-system/public/products">Товари</a>
 
         <a class="nav-link" href="/inventory-management-system/public/products/low-stock">Низький запас</a>
+
+        <a href="/inventory-management-system/public/activity-logs">Історія дій</a>
     </nav>
 
 </header>

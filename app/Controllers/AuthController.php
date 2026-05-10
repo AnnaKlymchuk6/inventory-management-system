@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../core/Controller.php';
 require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Helpers/Auth.php';
+require_once __DIR__ . '/../Services/ActivityLogger.php';
 
 class AuthController extends Controller
 {
@@ -44,11 +45,17 @@ class AuthController extends Controller
         }
         Auth::login($user);
 
+        $logger = new ActivityLogger();
+        $logger->log('Увійшов у систему');
+
         header('Location: /inventory-management-system/public/products');
     }
 
     public function logout(): void
     {
+        $logger = new ActivityLogger();
+        $logger->log('Вийшов із системи');
+
         Auth::logout();
         header('Location: /inventory-management-system/public/login');
     }

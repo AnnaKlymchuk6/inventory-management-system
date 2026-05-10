@@ -5,6 +5,8 @@ require_once __DIR__ . '/../Models/Product.php';
 require_once __DIR__ . '/../Models/Category.php';
 require_once __DIR__ . '/../Helpers/Auth.php';
 require_once __DIR__ . '/../Services/ProductValidator.php';
+require_once __DIR__ . '/../Services/ActivityLogger.php';
+
 class ProductController extends Controller
 {
     private Product $productModel;
@@ -88,6 +90,11 @@ class ProductController extends Controller
 
         $this->productModel->create($_POST);
 
+        $logger = new ActivityLogger();
+        $logger->log(
+            'Додав товар "' . $_POST['name'] . '"'
+        );
+
         header('Location: /inventory-management-system/public/products');
     }
 
@@ -99,7 +106,15 @@ class ProductController extends Controller
             return;
         }
         $id = (int) $_POST['id'];
+        $product = $this->productModel->getById($id);
+
         $this->productModel->delete($id);
+
+        $logger = new ActivityLogger();
+        $logger->log(
+            'Видалив товар "' . $product['name'] . '"'
+        );
+
         header('Location: /inventory-management-system/public/products');
     }
 
@@ -154,6 +169,11 @@ class ProductController extends Controller
         }
 
         $this->productModel->update($id, $_POST);
+
+        $logger = new ActivityLogger();
+        $logger->log(
+            'Оновив товар "' . $_POST['name'] . '"'
+        );
 
         header('Location: /inventory-management-system/public/products');
     }
