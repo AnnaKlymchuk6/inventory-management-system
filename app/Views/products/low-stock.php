@@ -1,14 +1,19 @@
-<h1>Товари з малим залишком</h1>
+<h1 class="page-title">
+    Товари з низьким запасом
+</h1>
 
-<?php if (empty($products)): ?>
-    <p>Усі товари в достатній кількості.</p>
-<?php endif; ?>
+<div class="products-grid">
 
-<?php foreach ($products as $product): ?>
-    <div class="low-stock-card">
-        <h3><?= htmlspecialchars($product['name']) ?></h3>
+    <?php foreach ($products as $product): ?>
 
-        <p>Залишилось:<?= $product['quantity'] ?></p>
-    </div>
+        <div class="low-stock-card">
+            <h3><?= htmlspecialchars($product['name']) ?></h3>
 
-<?php endforeach; ?>
+            <p>Залишилось:
+                <strong><?= $product['quantity'] ?></strong>
+            </p>
+        </div>
+
+    <?php endforeach; ?>
+
+</div>
