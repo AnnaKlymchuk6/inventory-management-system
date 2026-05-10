@@ -80,3 +80,18 @@ $router->add('/stock/history-all', function () {
     $controller = new StockMovementController();
     $controller->allHistory();
 });
+
+$router->add('/sales', function () {
+    $controller = new SaleController();
+    $controller->index();
+});
+
+$router->add('/sales/create', function () {
+    $controller = new SaleController();
+    $controller->create();
+});
+
+$router->add('/sales/store', function () {
+    $controller = new SaleController();
+    $controller->store();
+});

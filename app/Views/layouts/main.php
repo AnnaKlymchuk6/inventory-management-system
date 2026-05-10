@@ -57,7 +57,11 @@ $user = Auth::user();
             Товари
         </a>
 
-        <a href="/inventory-management-system/public/stock/history-all">
+        <a class="nav-link" href="/inventory-management-system/public/sales">
+            Продажі
+        </a>
+
+        <a class="nav-link" href="/inventory-management-system/public/stock/history-all">
             Рух товарів
         </a>
 
@@ -65,9 +69,13 @@ $user = Auth::user();
             Низький запас
         </a>
 
-        <a href="/inventory-management-system/public/activity-logs">
-            Історія дій
-        </a>
+        <?php if (!Auth::isEmployee()): ?>
+
+            <a class="nav-link" href="/inventory-management-system/public/activity-logs">
+                Історія дій
+            </a>
+
+        <?php endif; ?>
     </nav>
 
 </header>
@@ -81,6 +89,6 @@ $user = Auth::user();
     <p>Warehouse Inventory System</p>
 
 </footer>
-
+<script src="/inventory-management-system/public/js/app.js"></script>
 </body>
 </html>

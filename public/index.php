@@ -10,7 +10,7 @@ require_once '../app/Controllers/AuthController.php';
 require_once '../app/Controllers/ActivityLogController.php';
 
 require_once '../app/Controllers/StockMovementController.php';
-
+require_once '../app/Controllers/SaleController.php';
 
 $router = new Router();
 
