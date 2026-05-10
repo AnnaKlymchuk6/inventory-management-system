@@ -38,8 +38,10 @@
 
         <label>Причина / Коментар</label>
 
-        <textarea name="note"
-                  rows="4"></textarea>
+        <textarea
+                name="note"
+                placeholder="Наприклад: пошкодження товару, нове постачання, повернення..."
+        ></textarea>
 
         <button type="submit">
             Зберегти
