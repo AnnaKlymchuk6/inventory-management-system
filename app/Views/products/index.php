@@ -69,26 +69,48 @@
 
                 <td>
                     <div class="actions">
+
+                        <a class="stock-btn"
+                           href="/inventory-management-system/public/stock/history?product_id=<?= $product['id'] ?>">
+                            Історія
+                        </a>
+
                         <?php if (!Auth::isEmployee()): ?>
-                            <a class="edit-btn"
+
+                            <a class="stock-btn"
+                               href="/inventory-management-system/public/stock/create?product_id=<?= $product['id'] ?>">
+                                Рух
+                            </a>
+
+                            <a class="action-btn edit-btn"
                                href="/inventory-management-system/public/products/edit?id=<?= $product['id'] ?>">
                                 Редагувати
                             </a>
+
                         <?php endif; ?>
 
                         <?php if (Auth::isAdmin()): ?>
 
-                            <form action="/inventory-management-system/public/products/delete" method="POST"
-                                    onsubmit="return confirm('Видалити товар?')">
-                                <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                            <form action="/inventory-management-system/public/products/delete"
+                                  method="POST"
+                                  onsubmit="return confirm('Видалити товар?')">
 
-                                <button class="delete-btn" type="submit">Видалити</button>
+                                <input type="hidden"
+                                       name="id"
+                                       value="<?= $product['id'] ?>">
+
+                                <button class="action-btn delete-btn"
+                                        type="submit">
+
+                                    Видалити
+
+                                </button>
+
                             </form>
 
                         <?php endif; ?>
 
                     </div>
-
                 </td>
             </tr>
 
