@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../Models/Product.php';
 require_once __DIR__ . '/../Models/StockMovement.php';
+require_once __DIR__ . '/../Factories/MovementFactory.php';
 
 class StockService
 {
@@ -45,13 +46,15 @@ class StockService
             $newQuantity
         );
 
-        $this->movementModel->create([
-            'product_id' => $productId,
-            'user_id' => $userId,
-            'type' => $type,
-            'quantity' => $quantity,
-            'note' => $note
-        ]);
+        $data = MovementFactory::create(
+            $productId,
+            $userId,
+            $type,
+            $quantity,
+            $note
+        );
+
+        $this->movementModel->create($data);
 
         return true;
     }
