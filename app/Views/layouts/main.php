@@ -5,35 +5,55 @@ require_once __DIR__ . '/../../Helpers/Auth.php';
 $user = Auth::user();
 
 ?>
+
 <!DOCTYPE html>
 <html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title><?= $title ?? 'Система обліку товарів' ?></title>
 
-    <link rel="stylesheet"
-          href="/inventory-management-system/public/css/style.css">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        <?= $title ?? 'Warehouse Inventory System' ?>
+    </title>
+
+    <link rel="stylesheet" href="/inventory-management-system/public/css/style.css">
+
 </head>
 <body>
 
 <header class="header">
-    <h1>Система обліку товарів на складі</h1>
 
-    <nav>
-        <a href="/inventory-management-system/public/">Головна</a>
+    <div class="header-top">
 
-        <a href="/inventory-management-system/public/products">Товари</a>
+        <div>
+            <h1 class="system-title">Warehouse Inventory System</h1>
+
+            <p class="system-subtitle">Система обліку товарів на складі</p>
+        </div>
 
         <?php if ($user): ?>
 
-            <span><?= htmlspecialchars($user['name']) ?>(<?= htmlspecialchars($user['role']) ?>)</span>
+            <div class="user-panel">
 
-            <a href="/inventory-management-system/public/logout">Вийти</a>
-        <?php else: ?>
-            <a href="/inventory-management-system/public/login">Увійти</a>
+                <span class="role-badge role-<?= htmlspecialchars($user['role']) ?>">
+                    <?= htmlspecialchars($user['role']) ?>
+                </span>
+
+                <a class="logout-btn" href="/inventory-management-system/public/logout">Вийти</a>
+
+            </div>
+
         <?php endif; ?>
 
-        <a href="/inventory-management-system/public/products/low-stock">Малий залишок</a>
+    </div>
+
+    <nav class="navbar">
+        <a class="nav-link" href="/inventory-management-system/public/">Dashboard</a>
+
+        <a class="nav-link" href="/inventory-management-system/public/products">Товари</a>
+
+        <a class="nav-link" href="/inventory-management-system/public/products/low-stock">Низький запас</a>
     </nav>
 
 </header>
@@ -43,7 +63,9 @@ $user = Auth::user();
 </main>
 
 <footer class="footer">
-    <p>Warehouse Inventory Management System</p>
+
+    <p>Warehouse Inventory System</p>
+
 </footer>
 
 </body>

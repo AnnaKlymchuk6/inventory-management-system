@@ -1,5 +1,6 @@
-<h2>Головна панель</h2>
-
+<h2 class="page-title">
+    Панель управління складом
+</h2>
 <div class="dashboard">
 
     <div class="card">
@@ -18,20 +19,27 @@
     </div>
 </div>
 
-<h2>Останні товари</h2>
+<h2 class="section-title">
+    Останні товари
+</h2>
 
-<?php if (empty($latestProducts)): ?>
-    <p>Товарів поки немає.</p>
-<?php endif; ?>
+<div class="products-grid">
 
-<?php foreach ($latestProducts as $product): ?>
+    <?php foreach ($latestProducts as $product): ?>
 
-    <div class="product-card">
-        <h3><?= htmlspecialchars($product['name']) ?></h3>
+        <div class="product-card">
 
-        <p>Кількість:<?= $product['quantity'] ?></p>
+            <h3><?= htmlspecialchars($product['name']) ?></h3>
 
-        <p>Ціна:<?= $product['price'] ?> грн</p>
-    </div>
+            <p>Кількість:
+                <strong><?= $product['quantity'] ?></strong>
+            </p>
 
-<?php endforeach; ?>
+            <p>Ціна:
+                <strong><?= number_format($product['price'], 2) ?> грн</strong>
+            </p>
+        </div>
+
+    <?php endforeach; ?>
+
+</div>
