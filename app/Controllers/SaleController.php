@@ -11,6 +11,7 @@ class SaleController extends Controller
 {
     private Sale $saleModel;
     private Product $productModel;
+    private SaleService $saleService;
 
     public function __construct()
     {
@@ -18,6 +19,7 @@ class SaleController extends Controller
 
         $this->saleModel = new Sale();
         $this->productModel = new Product();
+        $this->saleService = new SaleService();
     }
 
     public function index(): void
@@ -44,55 +46,15 @@ class SaleController extends Controller
         $quantity = (int) $_POST['quantity'];
         $note = trim($_POST['note']);
 
-        $product = $this->productModel->getById($productId);
+        $result = $this->saleService->processSale($productId, $quantity, $note, Auth::user());
 
-        if (!$product) {
-            header('Location: /inventory-management-system/public/sales');
-            return;
+        if (!$result['success']) {
+            if (isset($result['redirect']) && $result['redirect']) {
+                header('Location: /inventory-management-system/public/sales');
+                return;
+            }
+            die($result['error']);
         }
-
-        if ($quantity <= 0) {
-            die('Кількість повинна бути більше нуля');
-        }
-
-        if ($quantity > $product['quantity']) {
-            die('Недостатньо товару на складі');
-        }
-
-        $newQuantity = $product['quantity'] - $quantity;
-
-        $this->productModel->updateQuantity(
-            $productId,
-            $newQuantity
-        );
-
-        $totalPrice = $product['price'] * $quantity;
-
-        $this->saleModel->create([
-            'product_id' => $productId,
-            'user_id' => Auth::user()['id'],
-            'quantity' => $quantity,
-            'total_price' => $totalPrice,
-            'note' => $note
-        ]);
-
-        $movementModel = new StockMovement();
-
-        $movementModel->create([
-            'product_id' => $productId,
-            'user_id' => Auth::user()['id'],
-            'type' => 'out',
-            'quantity' => $quantity,
-            'note' => 'Продаж товару'
-        ]);
-
-        $logger = new ActivityLogger();
-
-        $logger->log(
-            'Продав товар "' .
-            $product['name'] .
-            '" (' . $quantity . ' шт.)'
-        );
 
         header('Location: /inventory-management-system/public/sales');
     }
