@@ -8,30 +8,11 @@ require_once '../app/Controllers/ProductController.php';
 
 $router = new Router();
 
-$router->add('/', function () {
-    $controller = new HomeController();
-    $controller->index();
-});
-
-$router->add('/products', function () {
-    $controller = new ProductController();
-    $controller->index();
-});
-
-$router->add('/products/create', function () {
-    $controller = new ProductController();
-    $controller->create();
-});
-
-$router->add('/products/store', function () {
-    $controller = new ProductController();
-    $controller->store();
-});
-
-$router->add('/products/delete', function () {
-    $controller = new ProductController();
-    $controller->delete();
-});
+$router->add('/', 'HomeController@index');
+$router->add('/products', 'ProductController@index');
+$router->add('/products/create', 'ProductController@create');
+$router->add('/products/store', 'ProductController@store');
+$router->add('/products/delete', 'ProductController@delete');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
